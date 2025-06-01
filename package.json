@@ -1,0 +1,30 @@
+{
+  "name": "mongodb_all",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "seed": "npx tsx ./src/db/seed.ts",
+    "start": "node dist/index.js",
+    "lint": "npx eslint .",
+    "format": "npx prettier . --check --write"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.3",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
+    "hono": "^4.7.11",
+    "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^20.11.17",
+    "eslint": "^9.28.0",
+    "globals": "^16.2.0",
+    "prettier": "3.5.3",
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.0"
+  }
+}
