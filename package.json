@@ -1,6 +1,11 @@
 {
   "name": "mongodb_all",
   "type": "module",
+  "author": {
+    "name": "boss bhai",
+    "email": "bossbhai@gmail.com",
+    "url": "https://bossbhai.com"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",

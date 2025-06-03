@@ -1,93 +1,116 @@
 import { connect, disconnect } from "mongoose";
-import Order from "../models/order.model.js";
-import Product from "../models/product.model.js";
-import User from "../models/user.model.js";
 import { connectionString } from "./index.js";
+import User from "../models/users.model.js";
+import Product from "../models/products.model.js";
+import Order from "../models/orders.model.js";
 
 (async () => {
+  console.log("Seeding started");
+
   await connect(connectionString!);
 
   await User.deleteMany({});
   await Product.deleteMany({});
   await Order.deleteMany({});
 
-  const [Alice, Bob, Dany] = await User.insertMany([
+  const [John, Bapu, Donald] = await User.insertMany([
     {
-      name: "Alice",
-      email: "alice@example.com",
-      password: "Hashedpass@1",
-      role: "customer",
+      name: "John Bhai",
+      age: 20,
+      email: "Johnbhai@gmail.com",
+      password: "12345678",
     },
     {
-      name: "Bob",
-      email: "bob@example.com",
-      password: "Hashedpass@2",
+      name: "Gandhi Bapu",
+      age: 21,
+      email: "gandhiBapu@gmail.com",
+      password: "12345678",
       role: "admin",
     },
     {
-      name: "Dany",
-      email: "dany@example.com",
-      password: "Hashedpass@3",
-      role: "customer",
+      name: "Donald Bhai",
+      age: 22,
+      email: "donaldbhai@gmail.com",
+      password: "12345678",
     },
   ]);
 
-  const [Laptop, Headphone, Mouse] = await Product.insertMany([
+  const [Laptop, Mobile, DSLR] = await Product.insertMany([
     {
       name: "Laptop",
-      description: "Gaming laptop",
+      description: "Ye hai laptop",
       price: 1200,
       stock: 10,
     },
     {
-      name: "Headphones",
-      description: "Noise-cancelling",
-      price: 200,
-      stock: 50,
+      name: "Mobile",
+      description: "Ye hai Mobile",
+      price: 800,
+      stock: 20,
     },
     {
-      name: "Mouse",
-      description: "Wireless mouse",
-      price: 50,
-      stock: 100,
+      name: "DSLR",
+      description: "Ye hai chapriyo ke liye DSLR",
+      price: 400,
+      stock: 6,
     },
   ]);
 
   await Order.insertMany([
     {
-      user: Alice._id,
+      user: John._id,
       products: [
-        { product: Laptop._id, quantity: 1 },
-        { product: Headphone._id, quantity: 2 },
-        { product: Mouse._id, quantity: 2 },
+        {
+          productId: Laptop._id,
+          quantity: 1,
+        },
+        {
+          productId: Mobile._id,
+          quantity: 1,
+        },
       ],
-      totalPrice: 1600,
+      totalPrice: 2000,
       status: "pending",
     },
     {
-      user: Bob._id,
+      user: Bapu._id,
       products: [
-        { product: Headphone._id, quantity: 1 },
-        { product: Mouse._id, quantity: 2 },
+        {
+          productId: Mobile._id,
+          quantity: 1,
+        },
+        {
+          productId: DSLR._id,
+          quantity: 1,
+        },
       ],
-      totalPrice: 250,
+      totalPrice: 1200,
       status: "shipped",
     },
     {
-      user: Dany._id,
+      user: Donald._id,
       products: [
-        { product: Laptop._id, quantity: 1 },
-        { product: Headphone._id, quantity: 1 },
-        { product: Mouse._id, quantity: 1 },
+        {
+          productId: Laptop._id,
+          quantity: 1,
+        },
+        {
+          productId: Mobile._id,
+          quantity: 1,
+        },
+        {
+          productId: DSLR._id,
+          quantity: 1,
+        },
       ],
-      totalPrice: 1450,
+      totalPrice: 2400,
       status: "delivered",
     },
   ]);
 
-  console.log("Seeded successfully");
+  console.log("Seeding complete");
   await disconnect();
-})().catch((err) => {
-  console.error(err);
-  disconnect();
+})().catch(async (err) => {
+  console.log(err);
+  await disconnect();
 });

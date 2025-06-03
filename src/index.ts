@@ -2,7 +2,7 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import ENV from "./lib/env.js";
 import connectDb from "./db/index.js";
-import router from "./routes/mongo.routes.js";
+import router from "./routes/index.js";
 
 const app = new Hono();
 
